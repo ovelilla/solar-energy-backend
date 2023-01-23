@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
+import proposalRoutes from "./routes/proposalRoutes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -9,11 +12,11 @@ app.use(express.json());
 
 dotenv.config();
 
+await connectDB();
 
-const whiteList = [process.env.FRONTEND_URL];
+const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
 const corsOptions = {
-    credentials: true,
     origin: function (origin, callback) {
         if (whiteList.includes(origin)) {
             callback(null, true);
@@ -25,13 +28,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/", (req, res) => {
-    res.send("Hello World");
-});
-
-// app.use("/api/user", userRoutes);
-// app.use("/api/project", projectRoutes);
-// app.use("/api/task", taskRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/proposal", proposalRoutes);
 
 const PORT = process.env.PORT || 4000;
 

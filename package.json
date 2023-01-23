@@ -11,6 +11,7 @@
     "author": "Oscar Velilla Abril",
     "license": "ISC",
     "dependencies": {
+        "argon2": "^0.30.3",
         "bcrypt": "^5.1.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
@@ -18,7 +19,8 @@
         "express": "^4.18.2",
         "jsonwebtoken": "^9.0.0",
         "mongoose": "^6.8.4",
-        "nodemailer": "^6.9.0"
+        "nodemailer": "^6.9.0",
+        "uuid": "^9.0.0"
     },
     "devDependencies": {
         "nodemon": "^2.0.20"
