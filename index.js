@@ -25,11 +25,11 @@ const whiteList = ["http://localhost:5173", "http://localhost:5174"];
 
 const corsOptions = {
     origin: function (origin, callback) {
-        if (whiteList.includes(origin)) {
+        // if (whiteList.includes(origin)) {
             callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
+        // } else {
+        //     callback(new Error("Not allowed by CORS"));
+        // }
     },
 };
 
