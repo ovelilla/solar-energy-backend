@@ -20,7 +20,8 @@ mongoose.connect("mongodb+srv://oscarva:i68q1BM4i9KRVJLT@cluster0.xdfw5ec.mongod
     useUnifiedTopology: true,
 });
 
-const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
+const whiteList = ["http://localhost:5173", "http://localhost:5174"];
+// const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -32,7 +33,7 @@ const corsOptions = {
     },
 };
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
     res.send("API is running...");
