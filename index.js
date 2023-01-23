@@ -18,7 +18,6 @@ mongoose.set("strictQuery", true);
 mongoose.connect("mongodb+srv://oscarva:i68q1BM4i9KRVJLT@cluster0.xdfw5ec.mongodb.net/solar?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
 });
 
 const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
