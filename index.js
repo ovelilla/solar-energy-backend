@@ -12,7 +12,7 @@ app.use(express.json());
 
 dotenv.config();
 
-// await connectDB();
+await connectDB();
 
 const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
