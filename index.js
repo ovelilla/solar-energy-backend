@@ -28,6 +28,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get("/", (req, res) => {
+    res.send("API is running...");
+});
+
 app.use("/api/users", userRoutes);
 app.use("/api/proposal", proposalRoutes);
 
