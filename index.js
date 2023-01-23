@@ -20,16 +20,16 @@ mongoose.connect("mongodb+srv://oscarva:i68q1BM4i9KRVJLT@cluster0.xdfw5ec.mongod
     useUnifiedTopology: true,
 });
 
-const whiteList = ["http://localhost:5173", "http://localhost:5174"];
-// const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
+// const whiteList = ["http://localhost:5173", "http://localhost:5174"];
+const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // if (whiteList.includes(origin)) {
+        if (whiteList.includes(origin)) {
             callback(null, true);
-        // } else {
-        //     callback(new Error("Not allowed by CORS"));
-        // }
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
     },
 };
 
