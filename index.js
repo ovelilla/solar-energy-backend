@@ -1,8 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import connectDB from "./config/db.js";
+// import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import proposalRoutes from "./routes/proposalRoutes.js";
 
@@ -12,7 +13,13 @@ app.use(express.json());
 
 dotenv.config();
 
-await connectDB();
+// await connectDB();
+
+mongoose.connect("mongodb+srv://oscarva:i68q1BM4i9KRVJLT@cluster0.xdfw5ec.mongodb.net/solar?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+});
 
 const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
