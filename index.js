@@ -4,7 +4,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+
 import proposalRoutes from "./routes/proposalRoutes.js";
+import orientationRoutes from "./routes/orientationRoutes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -28,12 +30,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-    res.send("API is running...");
-});
-
 app.use("/api/users", userRoutes);
 app.use("/api/proposal", proposalRoutes);
+app.use("/api/orientation", orientationRoutes);
 
 const PORT = process.env.PORT || 4000;
 

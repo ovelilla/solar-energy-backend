@@ -4,7 +4,7 @@ import Proposal from "../models/Proposal.js";
 
 export const readProposals = async (req, res) => {
     try {
-        const proposals = await Proposal.find();
+        const proposals = await Proposal.find().sort({ createdAt: -1 });
 
         res.json(proposals);
     } catch (error) {
