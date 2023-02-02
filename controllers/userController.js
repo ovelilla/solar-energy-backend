@@ -144,6 +144,8 @@ export const login = async (req, res) => {
             sameSite: "none",
             secure: true,
             httpOnly: true,
+            domain: "solar-energy-backend.vercel.app",
+            path: "/",
         });
 
         res.status(200).json({
