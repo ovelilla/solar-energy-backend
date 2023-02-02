@@ -157,8 +157,9 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-    console.log("logout");
-    res.clearCookie("access_token");
+    console.log("logout1");
+    res.clearCookie("access_token", { path: "/" });
+    console.log("logout2");
 
     res.status(200).json({ message: "Sesión cerrada correctamente" });
 };
