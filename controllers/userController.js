@@ -256,5 +256,6 @@ export const restore = async (req, res) => {
 
 export const auth = async (req, res) => {
     const { user } = req;
+    console.log(user);
     res.status(200).json(user);
 };

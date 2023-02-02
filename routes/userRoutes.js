@@ -20,7 +20,6 @@ router.post("/confirm", confirm);
 router.post("/recover", recover);
 router.post("/check-token", checkToken);
 router.post("/restore", restore);
-
 router.get("/auth", checkAuth, auth);
 
 export default router;
