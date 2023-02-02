@@ -139,11 +139,17 @@ export const login = async (req, res) => {
 
         const token = generateJWT(user.id);
 
+        res.cookie("access_token", token, {
+            expires: new Date(Date.now() + 24 * 3600000),
+            sameSite: "none",
+            secure: true,
+            httpOnly: true,
+        });
+
         res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: token,
         });
     } catch (error) {
         console.log(error);

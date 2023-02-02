@@ -5,12 +5,12 @@ const orientationSchema = mongoose.Schema(
         orientation: {
             type: String,
             required: true,
-            enum: ["south", "east", "west", "east+west"],
+            enum: ["Sur", "Este", "Oeste", "Este + Oeste"],
         },
         type: {
             type: String,
             required: true,
-            enum: ["string", "microinverter"],
+            enum: ["String", "Microinversor"],
         },
         performance: {
             type: Number,

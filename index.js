@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 
 import proposalRoutes from "./routes/proposalRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
+import habitRoutes from "./routes/habitRoutes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -19,6 +20,7 @@ await connectDB();
 const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
 
 const corsOptions = {
+    credentials: true,
     origin: function (origin, callback) {
         if (whiteList.includes(origin)) {
             callback(null, true);
@@ -30,9 +32,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
 app.use("/api/orientation", orientationRoutes);
+app.use("/api/habit", habitRoutes);
 
 const PORT = process.env.PORT || 4000;
 
