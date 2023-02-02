@@ -6,6 +6,8 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 
 import proposalRoutes from "./routes/proposalRoutes.js";
+
+import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
 import habitRoutes from "./routes/habitRoutes.js";
 
@@ -17,7 +19,7 @@ dotenv.config();
 
 await connectDB();
 
-const whiteList = [process.env.LANDING_URL, process.env.CRM_URL];
+const whiteList = [process.env.LANDING_URL, process.env.CRM_URL, "https://postman.com"];
 
 const corsOptions = {
     credentials: true,
@@ -34,6 +36,8 @@ app.use(cors(corsOptions));
 
 app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
+
+app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);
 app.use("/api/habit", habitRoutes);
 
