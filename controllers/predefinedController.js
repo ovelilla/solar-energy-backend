@@ -8,17 +8,18 @@ export const readPredefined = async (req, res) => {
     console.log(publicIp);
 
     let ips = (
-        req.headers['cf-connecting-ip'] ||
-        req.headers['x-real-ip'] ||
-        req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress || ''
-    ).split(',');
+        req.headers["cf-connecting-ip"] ||
+        req.headers["x-real-ip"] ||
+        req.headers["x-forwarded-for"] ||
+        req.connection.remoteAddress ||
+        ""
+    ).split(",");
 
     console.log(ips);
     try {
         const predefined = await Predefined.findOne();
 
-        res.json(predefined);
+        res.json({ publicIp, ips, predefined });
     } catch (error) {
         console.log(error);
     }
