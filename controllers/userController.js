@@ -160,12 +160,14 @@ export const logout = async (req, res) => {
     try {
         await User.findByIdAndUpdate(req.user._id, { isConnected: false });
 
-        res.clearCookie("access_token", {
-            expires: new Date(Date.now() + 24 * 3600000),
-            sameSite: "none",
-            secure: true,
-            httpOnly: true,
-        });
+        // res.clearCookie("access_token", {
+        //     expires: new Date(Date.now() + 24 * 3600000),
+        //     sameSite: "none",
+        //     secure: true,
+        //     httpOnly: true,
+        // });
+
+        res.clearCookie("access_token");
 
         res.status(200).json({ message: "Sesión cerrada correctamente" });
     } catch (error) {
