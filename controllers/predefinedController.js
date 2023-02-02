@@ -1,25 +1,17 @@
 import mongoose from "mongoose";
 import Predefined from "../models/Predefined.js";
 
-import ip from "ip";
+import requestIp from "request-ip";
 
 export const readPredefined = async (req, res) => {
-    const publicIp = ip.address();
-    console.log(publicIp);
+    const ip = requestIp.getClientIp(req);
 
-    let ips = (
-        req.headers["cf-connecting-ip"] ||
-        req.headers["x-real-ip"] ||
-        req.headers["x-forwarded-for"] ||
-        req.connection.remoteAddress ||
-        ""
-    ).split(",");
-
-    console.log(ips);
+    console.log("IP: ", ip);
+    
     try {
         const predefined = await Predefined.findOne();
 
-        res.json({ publicIp, ips, predefined });
+        res.json(predefined);
     } catch (error) {
         console.log(error);
     }
