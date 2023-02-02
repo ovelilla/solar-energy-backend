@@ -143,7 +143,7 @@ export const login = async (req, res) => {
             expires: new Date(Date.now() + 24 * 3600000),
             sameSite: "none",
             secure: true,
-            // httpOnly: true,
+            httpOnly: true,
         });
 
         res.status(200).json({
@@ -157,14 +157,15 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-    console.log("logout1");
-    res.clearCookie("access_token", {
-        sameSite: "none",
-        secure: true,
-    });
-    console.log("logout2");
+    try {
+        await User.findByIdAndUpdate(req.user._id, { isConnected: false });
 
-    res.status(200).json({ message: "Sesión cerrada correctamente" });
+        res.clearCookie("access_token");
+
+        res.status(200).json({ message: "Sesión cerrada correctamente" });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const recover = async (req, res) => {
