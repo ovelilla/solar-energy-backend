@@ -143,9 +143,7 @@ export const login = async (req, res) => {
             expires: new Date(Date.now() + 24 * 3600000),
             sameSite: "none",
             secure: true,
-            httpOnly: true,
-            domain: "solar-energy-backend.vercel.app",
-            path: "/",
+            // httpOnly: true,
         });
 
         res.status(200).json({
@@ -161,8 +159,6 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     console.log("logout1");
     res.clearCookie("access_token", {
-        domain: "solar-energy-backend.vercel.app",
-        path: "/",
         sameSite: "none",
         secure: true,
     });
