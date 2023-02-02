@@ -144,6 +144,7 @@ export const login = async (req, res) => {
             sameSite: "none",
             secure: true,
             httpOnly: true,
+            domain: "localhost",
         });
 
         res.status(200).json({
@@ -158,7 +159,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     console.log("logout1");
-    res.clearCookie("access_token", { path: "/" });
+    res.clearCookie("access_token", { domain: "solar-energy-backend.vercel.app", path: "/" });
     console.log("logout2");
 
     res.status(200).json({ message: "Sesión cerrada correctamente" });
