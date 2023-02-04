@@ -1,13 +1,7 @@
 import mongoose from "mongoose";
 import Predefined from "../models/Predefined.js";
 
-import requestIp from "request-ip";
-
 export const readPredefined = async (req, res) => {
-    const ip = requestIp.getClientIp(req);
-
-    console.log("IP: ", ip);
-    
     try {
         const predefined = await Predefined.findOne();
 
@@ -21,7 +15,7 @@ export const createPredefined = async (req, res) => {
     const {
         lastInvoiceEnergyCost,
         kWhConsumedLastBill,
-        MonthlyEnergyConsumption,
+        monthlyEnergyConsumption,
         contractedPowerInKW,
         avgPriceKWContractedPowerAnnual,
         ivaRate,
@@ -51,12 +45,12 @@ export const createPredefined = async (req, res) => {
         errors.kWhConsumedLastBill = error.message;
     }
 
-    if (!MonthlyEnergyConsumption) {
+    if (!monthlyEnergyConsumption) {
         const error = new Error("El consumo mensual en kWh es obligatorio");
-        errors.MonthlyEnergyConsumption = error.message;
-    } else if (isNaN(MonthlyEnergyConsumption)) {
+        errors.monthlyEnergyConsumption = error.message;
+    } else if (isNaN(monthlyEnergyConsumption)) {
         const error = new Error("El consumo mensual en kWh debe ser un número");
-        errors.MonthlyEnergyConsumption = error.message;
+        errors.monthlyEnergyConsumption = error.message;
     }
 
     if (!contractedPowerInKW) {
@@ -146,7 +140,7 @@ export const updatePredefined = async (req, res) => {
     const {
         lastInvoiceEnergyCost,
         kWhConsumedLastBill,
-        MonthlyEnergyConsumption,
+        monthlyEnergyConsumption,
         contractedPowerInKW,
         avgPriceKWContractedPowerAnnual,
         ivaRate,
@@ -181,12 +175,12 @@ export const updatePredefined = async (req, res) => {
         errors.kWhConsumedLastBill = error.message;
     }
 
-    if (!MonthlyEnergyConsumption) {
+    if (!monthlyEnergyConsumption) {
         const error = new Error("El consumo mensual en kWh es obligatorio");
-        errors.MonthlyEnergyConsumption = error.message;
-    } else if (isNaN(MonthlyEnergyConsumption)) {
+        errors.monthlyEnergyConsumption = error.message;
+    } else if (isNaN(monthlyEnergyConsumption)) {
         const error = new Error("El consumo mensual en kWh debe ser un número");
-        errors.MonthlyEnergyConsumption = error.message;
+        errors.monthlyEnergyConsumption = error.message;
     }
 
     if (!contractedPowerInKW) {
@@ -267,7 +261,7 @@ export const updatePredefined = async (req, res) => {
     const updatedPredefined = {
         lastInvoiceEnergyCost,
         kWhConsumedLastBill,
-        MonthlyEnergyConsumption,
+        monthlyEnergyConsumption,
         contractedPowerInKW,
         avgPriceKWContractedPowerAnnual,
         ivaRate,
@@ -281,11 +275,11 @@ export const updatePredefined = async (req, res) => {
     };
 
     try {
-        await Predefined.findByIdAndUpdate(id, updatedPredefined, { new: true });
+        const dbPredefined = await Predefined.findByIdAndUpdate(id, updatedPredefined, { new: true });
 
         res.json({
             message: "Datos predefinidos actualizados correctamente",
-            habit: updatedPredefined,
+            predefined: dbPredefined,
         });
     } catch (error) {
         console.log(error);

@@ -10,7 +10,7 @@ const predefinedSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        MonthlyEnergyConsumption: {
+        monthlyEnergyConsumption: {
             type: Number,
             required: true,
         },
