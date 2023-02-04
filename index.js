@@ -7,6 +7,8 @@ import userRoutes from "./routes/userRoutes.js";
 
 import proposalRoutes from "./routes/proposalRoutes.js";
 
+import batteryRoutes from "./routes/batteryRoutes.js";
+
 import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
 import habitRoutes from "./routes/habitRoutes.js";
@@ -36,6 +38,8 @@ app.use(cors(corsOptions));
 
 app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
+
+app.use("/api/battery", batteryRoutes);
 
 app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);
