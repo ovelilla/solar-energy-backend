@@ -1,18 +1,23 @@
 import mongoose from "mongoose";
 
-const batterySchema = mongoose.Schema(
+const inverterSchema = mongoose.Schema(
     {
         description: {
             type: String,
             required: true,
         },
-        capacity: {
+        power: {
             type: Number,
             required: true,
         },
-        modules: {
+        warranty: {
             type: Number,
             required: true,
+        },
+        type: {
+            type: String,
+            required: true,
+            enum: ["Monofásico", "Trifásico"],
         },
         price: {
             type: Number,
@@ -24,6 +29,6 @@ const batterySchema = mongoose.Schema(
     }
 );
 
-const Battery = mongoose.model("Battery", batterySchema);
+const Inverter = mongoose.model("Inverter", inverterSchema);
 
-export default Battery;
+export default Inverter;

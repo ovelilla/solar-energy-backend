@@ -1,16 +1,20 @@
 import mongoose from "mongoose";
 
-const batterySchema = mongoose.Schema(
+const panelSchema = mongoose.Schema(
     {
         description: {
             type: String,
             required: true,
         },
-        capacity: {
+        power: {
             type: Number,
             required: true,
         },
-        modules: {
+        warranty: {
+            type: Number,
+            required: true,
+        },
+        efficiency: {
             type: Number,
             required: true,
         },
@@ -24,6 +28,6 @@ const batterySchema = mongoose.Schema(
     }
 );
 
-const Battery = mongoose.model("Battery", batterySchema);
+const Panel = mongoose.model("Panel", panelSchema);
 
-export default Battery;
+export default Panel;

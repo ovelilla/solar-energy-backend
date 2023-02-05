@@ -126,7 +126,6 @@ export const updateBattery = async (req, res) => {
 };
 
 export const deleteBattery = async (req, res) => {
-    console.log("req.params");
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

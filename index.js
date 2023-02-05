@@ -7,7 +7,9 @@ import userRoutes from "./routes/userRoutes.js";
 
 import proposalRoutes from "./routes/proposalRoutes.js";
 
+import panelRoutes from "./routes/panelRoutes.js";
 import batteryRoutes from "./routes/batteryRoutes.js";
+import inverterRoutes from "./routes/inverterRoutes.js";
 
 import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
@@ -39,7 +41,9 @@ app.use(cors(corsOptions));
 app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
 
+app.use("/api/panel", panelRoutes);
 app.use("/api/battery", batteryRoutes);
+app.use("/api/inverter", inverterRoutes);
 
 app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);
