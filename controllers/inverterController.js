@@ -12,7 +12,7 @@ export const readInverters = async (req, res) => {
 };
 
 export const createInverter = async (req, res) => {
-    const { description, power, warranty, type, price } = req.body;
+    const { description, power, minCC, maxCC, warranty, type, price } = req.body;
 
     const errors = {};
 
@@ -27,6 +27,22 @@ export const createInverter = async (req, res) => {
     } else if (isNaN(power)) {
         const error = new Error("La potencia debe ser un número");
         errors.power = error.message;
+    }
+
+    if (!minCC) {
+        const error = new Error("La CC mínima es obligatoria");
+        errors.minCC = error.message;
+    } else if (isNaN(minCC)) {
+        const error = new Error("La CC mínima debe ser un número");
+        errors.minCC = error.message;
+    }
+
+    if (!maxCC) {
+        const error = new Error("La CC máxima es obligatoria");
+        errors.maxCC = error.message;
+    } else if (isNaN(maxCC)) {
+        const error = new Error("La CC máxima debe ser un número");
+        errors.maxCC = error.message;
     }
 
     if (!warranty) {
@@ -70,7 +86,7 @@ export const createInverter = async (req, res) => {
 
 export const updateInverter = async (req, res) => {
     const { id } = req.params;
-    const { description, power, warranty, type, price } = req.body;
+    const { description, power, minCC, maxCC, warranty, type, price } = req.body;
 
     const errors = {};
 
@@ -90,6 +106,22 @@ export const updateInverter = async (req, res) => {
     } else if (isNaN(power)) {
         const error = new Error("La potencia debe ser un número");
         errors.power = error.message;
+    }
+
+    if (!minCC) {
+        const error = new Error("La CC mínima es obligatoria");
+        errors.minCC = error.message;
+    } else if (isNaN(minCC)) {
+        const error = new Error("La CC mínima debe ser un número");
+        errors.minCC = error.message;
+    }
+
+    if (!maxCC) {
+        const error = new Error("La CC máxima es obligatoria");
+        errors.maxCC = error.message;
+    } else if (isNaN(maxCC)) {
+        const error = new Error("La CC máxima debe ser un número");
+        errors.maxCC = error.message;
     }
 
     if (!warranty) {
@@ -127,7 +159,7 @@ export const updateInverter = async (req, res) => {
         return res.status(404).json({ message: error.message });
     }
 
-    const updatedInverter = { description, power, warranty, type, price, _id: id };
+    const updatedInverter = { description, power, minCC, maxCC, warranty, type, price, _id: id };
 
     try {
         await Inverter.findByIdAndUpdate(id, updatedInverter, { new: true });

@@ -10,6 +10,14 @@ const inverterSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        minCC: {
+            type: Number,
+            required: true,
+        },
+        maxCC: {
+            type: Number,
+            required: true,
+        },
         warranty: {
             type: Number,
             required: true,

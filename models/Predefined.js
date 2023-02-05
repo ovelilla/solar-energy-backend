@@ -35,6 +35,10 @@ const predefinedSchema = mongoose.Schema(
             required: true,
             enum: ["Sur", "Este", "Oeste", "Este + Oeste"],
         },
+        slope: {
+            type: Number,
+            required: true,
+        },
         installationType: {
             type: String,
             required: true,

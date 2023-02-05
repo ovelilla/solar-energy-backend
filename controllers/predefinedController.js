@@ -21,6 +21,7 @@ export const createPredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
+        slope,
         installationType,
         potentialRadiationPerkWYear,
         consumptionHabit,
@@ -94,6 +95,14 @@ export const createPredefined = async (req, res) => {
         errors.roofOrientation = error.message;
     }
 
+    if (!slope) {
+        const error = new Error("La inclinación es obligatoria");
+        errors.slope = error.message;
+    } else if (isNaN(slope)) {
+        const error = new Error("La inclinación debe ser un número");
+        errors.slope = error.message;
+    }
+
     if (!installationType) {
         const error = new Error("El tipo de instalación es obligatorio");
         errors.installationType = error.message;
@@ -146,6 +155,7 @@ export const updatePredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
+        slope,
         installationType,
         potentialRadiationPerkWYear,
         consumptionHabit,
@@ -224,6 +234,14 @@ export const updatePredefined = async (req, res) => {
         errors.roofOrientation = error.message;
     }
 
+    if (!slope) {
+        const error = new Error("La inclinación es obligatoria");
+        errors.slope = error.message;
+    } else if (isNaN(slope)) {
+        const error = new Error("La inclinación debe ser un número");
+        errors.slope = error.message;
+    }
+
     if (!installationType) {
         const error = new Error("El tipo de instalación es obligatorio");
         errors.installationType = error.message;
@@ -267,6 +285,7 @@ export const updatePredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
+        slope,
         installationType,
         potentialRadiationPerkWYear,
         consumptionHabit,
