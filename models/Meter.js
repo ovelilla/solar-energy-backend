@@ -1,29 +1,31 @@
 import mongoose from "mongoose";
 
-const panelSchema = mongoose.Schema(
+const meterSchema = mongoose.Schema(
     {
         description: {
             type: String,
             required: true,
         },
-        power: {
+        minPanels: {
             type: Number,
             required: true,
         },
-        warranty: {
+        maxPanels: {
             type: Number,
             required: true,
         },
-        efficiency: {
-            type: Number,
+        current: {
+            type: String,
             required: true,
+            enum: ["Monofásico", "Trifásico"],
+        },
+        type: {
+            type: String,
+            required: true,
+            enum: ["String", "Microinversor"],
         },
         price: {
             type: Number,
-            required: true,
-        },
-        active: {
-            type: Boolean,
             required: true,
         },
     },
@@ -32,6 +34,6 @@ const panelSchema = mongoose.Schema(
     }
 );
 
-const Panel = mongoose.model("Panel", panelSchema);
+const Meter = mongoose.model("Meter", meterSchema);
 
-export default Panel;
+export default Meter;

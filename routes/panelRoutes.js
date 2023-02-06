@@ -3,6 +3,7 @@ import {
     readPanels,
     createPanel,
     updatePanel,
+    updateActive,
     deletePanel,
     deletePanels,
 } from "../controllers/panelController.js";
@@ -13,6 +14,7 @@ const router = express.Router();
 router.get("/", checkAuth, readPanels);
 router.post("/", checkAuth, createPanel);
 router.put("/:id", checkAuth, updatePanel);
+router.put("/:id/active", checkAuth, updateActive);
 router.delete("/:id", checkAuth, deletePanel);
 router.delete("/", checkAuth, deletePanels);
 

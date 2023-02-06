@@ -24,6 +24,7 @@ export const createPredefined = async (req, res) => {
         slope,
         installationType,
         potentialRadiationPerkWYear,
+        systemLoss,
         consumptionHabit,
         battery,
     } = req.body;
@@ -116,6 +117,14 @@ export const createPredefined = async (req, res) => {
         errors.potentialRadiationPerkWYear = error.message;
     }
 
+    if (!systemLoss) {
+        const error = new Error("La pérdida del sistema es obligatoria");
+        errors.systemLoss = error.message;
+    } else if (isNaN(systemLoss)) {
+        const error = new Error("La pérdida del sistema debe ser un número");
+        errors.systemLoss = error.message;
+    }
+
     if (!consumptionHabit) {
         const error = new Error("El hábito de consumo es obligatorio");
         errors.consumptionHabit = error.message;
@@ -158,6 +167,7 @@ export const updatePredefined = async (req, res) => {
         slope,
         installationType,
         potentialRadiationPerkWYear,
+        systemLoss,
         consumptionHabit,
         battery,
     } = req.body;
@@ -255,6 +265,14 @@ export const updatePredefined = async (req, res) => {
         errors.potentialRadiationPerkWYear = error.message;
     }
 
+    if (!systemLoss) {
+        const error = new Error("La pérdida del sistema es obligatoria");
+        errors.systemLoss = error.message;
+    } else if (isNaN(systemLoss)) {
+        const error = new Error("La pérdida del sistema debe ser un número");
+        errors.systemLoss = error.message;
+    }
+
     if (!consumptionHabit) {
         const error = new Error("El hábito de consumo es obligatorio");
         errors.consumptionHabit = error.message;
@@ -288,6 +306,7 @@ export const updatePredefined = async (req, res) => {
         slope,
         installationType,
         potentialRadiationPerkWYear,
+        systemLoss,
         consumptionHabit,
         battery,
         _id: id,

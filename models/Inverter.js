@@ -22,10 +22,15 @@ const inverterSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        type: {
+        current: {
             type: String,
             required: true,
             enum: ["Monofásico", "Trifásico"],
+        },
+        type: {
+            type: String,
+            required: true,
+            enum: ["String", "Microinversor"],
         },
         price: {
             type: Number,

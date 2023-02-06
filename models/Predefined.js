@@ -48,6 +48,10 @@ const predefinedSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        systemLoss: {
+            type: Number,
+            required: true,
+        },
         consumptionHabit: {
             type: String,
             required: true,

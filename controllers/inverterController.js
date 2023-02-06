@@ -3,7 +3,7 @@ import Inverter from "../models/Inverter.js";
 
 export const readInverters = async (req, res) => {
     try {
-        const inverters = await Inverter.find();
+        const inverters = await Inverter.find().sort({ current: 1, power: 1 });
 
         res.json(inverters);
     } catch (error) {
@@ -12,7 +12,7 @@ export const readInverters = async (req, res) => {
 };
 
 export const createInverter = async (req, res) => {
-    const { description, power, minCC, maxCC, warranty, type, price } = req.body;
+    const { description, power, minCC, maxCC, warranty, current, type, price } = req.body;
 
     const errors = {};
 
@@ -53,11 +53,19 @@ export const createInverter = async (req, res) => {
         errors.warranty = error.message;
     }
 
+    if (!current) {
+        const error = new Error("La corriente es obligatoria");
+        errors.current = error.message;
+    } else if (current !== "Monofásico" && current !== "Trifásico") {
+        const error = new Error("La corriente debe ser Monofásica o Trifásica");
+        errors.current = error.message;
+    }
+
     if (!type) {
         const error = new Error("El tipo es obligatorio");
         errors.type = error.message;
-    } else if (type !== "Monofásico" && type !== "Trifásico") {
-        const error = new Error("El tipo debe ser Monofásico o Trifásico");
+    } else if (type !== "String" && type !== "Microinversor") {
+        const error = new Error("El tipo debe ser String o Microinversor");
         errors.type = error.message;
     }
 
@@ -86,7 +94,7 @@ export const createInverter = async (req, res) => {
 
 export const updateInverter = async (req, res) => {
     const { id } = req.params;
-    const { description, power, minCC, maxCC, warranty, type, price } = req.body;
+    const { description, power, minCC, maxCC, warranty, current, type, price } = req.body;
 
     const errors = {};
 
@@ -132,11 +140,19 @@ export const updateInverter = async (req, res) => {
         errors.warranty = error.message;
     }
 
+    if (!current) {
+        const error = new Error("La corriente es obligatoria");
+        errors.current = error.message;
+    } else if (current !== "Monofásico" && current !== "Trifásico") {
+        const error = new Error("La corriente debe ser Monofásica o Trifásica");
+        errors.current = error.message;
+    }
+
     if (!type) {
         const error = new Error("El tipo es obligatorio");
         errors.type = error.message;
-    } else if (type !== "Monofásico" && type !== "Trifásico") {
-        const error = new Error("El tipo debe ser Monofásico o Trifásico");
+    } else if (type !== "String" && type !== "Microinversor") {
+        const error = new Error("El tipo debe ser String o Microinversor");
         errors.type = error.message;
     }
 
@@ -159,7 +175,17 @@ export const updateInverter = async (req, res) => {
         return res.status(404).json({ message: error.message });
     }
 
-    const updatedInverter = { description, power, minCC, maxCC, warranty, type, price, _id: id };
+    const updatedInverter = {
+        description,
+        power,
+        minCC,
+        maxCC,
+        warranty,
+        current,
+        type,
+        price,
+        _id: id,
+    };
 
     try {
         await Inverter.findByIdAndUpdate(id, updatedInverter, { new: true });
