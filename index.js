@@ -16,6 +16,8 @@ import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
 import habitRoutes from "./routes/habitRoutes.js";
 
+import fixedCostsRoutes from "./routes/fixedCostsRoutes.js";
+
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -50,6 +52,8 @@ app.use("/api/meter", meterRoutes);
 app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);
 app.use("/api/habit", habitRoutes);
+
+app.use("/api/fixed-costs", fixedCostsRoutes);
 
 const PORT = process.env.PORT || 4000;
 

@@ -342,7 +342,7 @@ export const deletePredefined = async (req, res) => {
     try {
         await Predefined.findByIdAndRemove(id);
 
-        res.json({ message: "Hábito eliminado correctamente" });
+        res.json({ message: "Datos predefinidos eliminados correctamente" });
     } catch (error) {
         console.log(error);
     }
