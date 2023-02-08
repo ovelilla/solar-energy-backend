@@ -7,6 +7,10 @@ import userRoutes from "./routes/userRoutes.js";
 
 import proposalRoutes from "./routes/proposalRoutes.js";
 
+import predefinedRoutes from "./routes/predefinedRoutes.js";
+import orientationRoutes from "./routes/orientationRoutes.js";
+import habitRoutes from "./routes/habitRoutes.js";
+
 import panelRoutes from "./routes/panelRoutes.js";
 import batteryRoutes from "./routes/batteryRoutes.js";
 import inverterRoutes from "./routes/inverterRoutes.js";
@@ -15,9 +19,8 @@ import meterRoutes from "./routes/meterRoutes.js";
 import structureRoutes from "./routes/structureRoutes.js";
 import peripheralRoutes from "./routes/peripheralRoutes.js";
 
-import predefinedRoutes from "./routes/predefinedRoutes.js";
-import orientationRoutes from "./routes/orientationRoutes.js";
-import habitRoutes from "./routes/habitRoutes.js";
+import protectionRoutes from "./routes/protectionRoutes.js";
+import linenRoutes from "./routes/lineRoutes.js";
 
 import fixedCostsRoutes from "./routes/fixedCostsRoutes.js";
 
@@ -47,6 +50,10 @@ app.use(cors(corsOptions));
 app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
 
+app.use("/api/predefined", predefinedRoutes);
+app.use("/api/orientation", orientationRoutes);
+app.use("/api/habit", habitRoutes);
+
 app.use("/api/panel", panelRoutes);
 app.use("/api/battery", batteryRoutes);
 app.use("/api/inverter", inverterRoutes);
@@ -55,9 +62,8 @@ app.use("/api/meter", meterRoutes);
 app.use("/api/structure", structureRoutes);
 app.use("/api/peripheral", peripheralRoutes);
 
-app.use("/api/predefined", predefinedRoutes);
-app.use("/api/orientation", orientationRoutes);
-app.use("/api/habit", habitRoutes);
+app.use("/api/protection", protectionRoutes);
+app.use("/api/line", linenRoutes);
 
 app.use("/api/fixed-costs", fixedCostsRoutes);
 
