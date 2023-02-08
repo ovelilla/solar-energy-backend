@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import Inverter from "../models/Inverter.js";
+import Microinverter from "../models/Microinverter.js";
 
-export const readInverters = async (req, res) => {
+export const readMicroinverters = async (req, res) => {
     try {
-        const inverters = await Inverter.find().sort({ current: 1, power: 1 });
+        const inverters = await Microinverter.find().sort({ current: 1, power: 1 });
 
         res.json(inverters);
     } catch (error) {
@@ -11,7 +11,7 @@ export const readInverters = async (req, res) => {
     }
 };
 
-export const createInverter = async (req, res) => {
+export const createMicroinverter = async (req, res) => {
     const { description, power, minCC, maxCC, warranty, current, price } = req.body;
 
     const errors = {};
@@ -73,26 +73,29 @@ export const createInverter = async (req, res) => {
         return res.status(400).json({ errors });
     }
 
-    const newInverter = new Inverter(req.body);
+    const newMicroinverter = new Microinverter(req.body);
 
     try {
-        const savedInverter = await newInverter.save();
+        const savedMicroinverter = await newMicroinverter.save();
 
-        res.json({ message: "Inversor creado correctamente", inverter: savedInverter });
+        res.json({
+            message: "Microinversor creado correctamente",
+            microinverter: savedMicroinverter,
+        });
     } catch (error) {
         console.log(error);
     }
 };
 
-export const updateInverter = async (req, res) => {
+export const updateMicroinverter = async (req, res) => {
     const { id } = req.params;
     const { description, power, minCC, maxCC, warranty, current, price } = req.body;
 
     const errors = {};
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        const error = new Error("La inverter no existe");
-        errors.inverter = error.message;
+        const error = new Error("El microinversor no existe");
+        return res.status(404).json({ message: error.message });
     }
 
     if (!description) {
@@ -152,14 +155,14 @@ export const updateInverter = async (req, res) => {
         return res.status(400).json({ errors });
     }
 
-    const foundInverter = await Inverter.findById(id);
+    const foundMicroinverter = await Microinverter.findById(id);
 
-    if (!foundInverter) {
-        const error = new Error("El inversor no existe");
+    if (!foundMicroinverter) {
+        const error = new Error("El microinversor no existe");
         return res.status(404).json({ message: error.message });
     }
 
-    const updatedInverter = {
+    const updatedMicroinverter = {
         description,
         power,
         minCC,
@@ -171,48 +174,48 @@ export const updateInverter = async (req, res) => {
     };
 
     try {
-        await Inverter.findByIdAndUpdate(id, updatedInverter, { new: true });
+        await Microinverter.findByIdAndUpdate(id, updatedMicroinverter, { new: true });
 
         res.json({
-            message: "Inversor actualizado correctamente",
-            inverter: updatedInverter,
+            message: "Microinversor actualizado correctamente",
+            microinverter: updatedMicroinverter,
         });
     } catch (error) {
         console.log(error);
     }
 };
 
-export const deleteInverter = async (req, res) => {
+export const deleteMicroinverter = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        const error = new Error("El inversor no existe");
+        const error = new Error("El microinversor no existe");
         return res.status(404).json({ message: error.message });
     }
 
-    const foundInverter = await Inverter.findById(id);
+    const foundMicroinverter = await Microinverter.findById(id);
 
-    if (!foundInverter) {
-        const error = new Error("El inversor no existe");
+    if (!foundMicroinverter) {
+        const error = new Error("El microinversor no existe");
         return res.status(404).json({ message: error.message });
     }
 
     try {
-        await Inverter.findByIdAndRemove(id);
+        await Microinverter.findByIdAndRemove(id);
 
-        res.json({ message: "Inversor eliminado correctamente" });
+        res.json({ message: "Microinversor eliminado correctamente" });
     } catch (error) {
         console.log(error);
     }
 };
 
-export const deleteInverters = async (req, res) => {
+export const deleteMicroinverters = async (req, res) => {
     const { ids } = req.body;
 
     try {
-        await Inverter.deleteMany({ _id: { $in: ids } });
+        await Microinverter.deleteMany({ _id: { $in: ids } });
 
-        res.json({ message: "Inversores eliminados correctamente" });
+        res.json({ message: "Microinversores eliminados correctamente" });
     } catch (error) {
         console.log(error);
     }

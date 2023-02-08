@@ -10,7 +10,10 @@ import proposalRoutes from "./routes/proposalRoutes.js";
 import panelRoutes from "./routes/panelRoutes.js";
 import batteryRoutes from "./routes/batteryRoutes.js";
 import inverterRoutes from "./routes/inverterRoutes.js";
+import microinverterRoutes from "./routes/microinverterRoutes.js";
 import meterRoutes from "./routes/meterRoutes.js";
+import structureRoutes from "./routes/structureRoutes.js";
+import peripheralRoutes from "./routes/peripheralRoutes.js";
 
 import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
@@ -47,7 +50,10 @@ app.use("/api/proposal", proposalRoutes);
 app.use("/api/panel", panelRoutes);
 app.use("/api/battery", batteryRoutes);
 app.use("/api/inverter", inverterRoutes);
+app.use("/api/microinverter", microinverterRoutes);
 app.use("/api/meter", meterRoutes);
+app.use("/api/structure", structureRoutes);
+app.use("/api/peripheral", peripheralRoutes);
 
 app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);

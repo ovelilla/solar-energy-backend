@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const inverterSchema = mongoose.Schema(
+const microinverterSchema = mongoose.Schema(
     {
         description: {
             type: String,
@@ -37,6 +37,6 @@ const inverterSchema = mongoose.Schema(
     }
 );
 
-const Inverter = mongoose.model("Inverter", inverterSchema);
+const Microinverter = mongoose.model("Microinverter", microinverterSchema);
 
-export default Inverter;
+export default Microinverter;
