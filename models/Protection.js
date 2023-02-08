@@ -9,7 +9,7 @@ const protectionSchema = mongoose.Schema(
         protectionType: {
             type: String,
             required: true,
-            enum: ["DC2", "AC"],
+            enum: ["DC", "AC"],
         },
         installationType: {
             type: String,

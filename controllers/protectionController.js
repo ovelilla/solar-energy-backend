@@ -24,7 +24,7 @@ export const createProtection = async (req, res) => {
     if (!protectionType) {
         const error = new Error("El tipo de protección es obligatorio");
         errors.protectionType = error.message;
-    } else if (protectionType !== "DC2" && protectionType !== "AC") {
+    } else if (protectionType !== "DC" && protectionType !== "AC") {
         const error = new Error("El tipo de protección debe ser DC o AC");
         errors.protectionType = error.message;
     }
@@ -91,7 +91,7 @@ export const updateProtection = async (req, res) => {
     if (!protectionType) {
         const error = new Error("El tipo de protección es obligatorio");
         errors.protectionType = error.message;
-    } else if (protectionType !== "DC2" && protectionType !== "AC") {
+    } else if (protectionType !== "DC" && protectionType !== "AC") {
         const error = new Error("El tipo de protección debe ser DC o AC");
         errors.protectionType = error.message;
     }
