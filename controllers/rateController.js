@@ -187,7 +187,7 @@ export const getRate = async (req, res) => {
     const margin = index - totalCost;
     const profitability = margin / index * 100;
 
-    const netPrice = profitability > fixedCosts.profitability ? index : totalCostWithMargin;
+    const netPrice = profitability > 30 ? index : totalCostWithMargin;
 
     const pvp = netPrice + (netPrice * fixedCosts.ivaRate) / 100;
     const profit = netPrice - totalCost;
