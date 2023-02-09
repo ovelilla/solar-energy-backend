@@ -191,6 +191,7 @@ export const getRate = async (req, res) => {
 
     const pvp = netPrice + (netPrice * fixedCosts.ivaRate) / 100;
     const profit = netPrice - totalCost;
+    const percentageProfit = profit / netPrice * 100;
     const eurosPerWatt = pvp / panelsPower;
 
     const rate = {
@@ -291,6 +292,7 @@ export const getRate = async (req, res) => {
             netPrice,
             pvp,
             profit,
+            percentageProfit,
             eurosPerWatt,
         },
     };
