@@ -20,9 +20,10 @@ import structureRoutes from "./routes/structureRoutes.js";
 import peripheralRoutes from "./routes/peripheralRoutes.js";
 
 import protectionRoutes from "./routes/protectionRoutes.js";
-import linenRoutes from "./routes/lineRoutes.js";
+import lineRoutes from "./routes/lineRoutes.js";
 
 import fixedCostsRoutes from "./routes/fixedCostsRoutes.js";
+import rateRoutes from "./routes/rateRoutes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -63,9 +64,10 @@ app.use("/api/structure", structureRoutes);
 app.use("/api/peripheral", peripheralRoutes);
 
 app.use("/api/protection", protectionRoutes);
-app.use("/api/line", linenRoutes);
+app.use("/api/line", lineRoutes);
 
 app.use("/api/fixed-costs", fixedCostsRoutes);
+app.use("/api/rate", rateRoutes);
 
 const PORT = process.env.PORT || 4000;
 

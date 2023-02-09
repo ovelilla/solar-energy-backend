@@ -21,8 +21,10 @@ export const createPredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
-        slope,
+        panelSlope,
+        structureType,
         installationType,
+        current,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
@@ -96,17 +98,33 @@ export const createPredefined = async (req, res) => {
         errors.roofOrientation = error.message;
     }
 
-    if (!slope) {
+    if (!panelSlope) {
         const error = new Error("La inclinación es obligatoria");
-        errors.slope = error.message;
-    } else if (isNaN(slope)) {
+        errors.panelSlope = error.message;
+    } else if (isNaN(panelSlope)) {
         const error = new Error("La inclinación debe ser un número");
-        errors.slope = error.message;
+        errors.panelSlope = error.message;
+    }
+
+    if (!structureType) {
+        const error = new Error("El tipo de estructura es obligatorio");
+        errors.structureType = error.message;
+    } else if (structureType !== "Coplanar" && structureType !== "Inclinada") {
+        const error = new Error("El tipo de estructura debe ser Coplanar o Inclinada");
+        errors.structureType = error.message;
     }
 
     if (!installationType) {
         const error = new Error("El tipo de instalación es obligatorio");
         errors.installationType = error.message;
+    }
+
+    if (!current) {
+        const error = new Error("La corriente es obligatoria");
+        errors.current = error.message;
+    } else if (current !== "Monofásico" && current !== "Trifásico") {
+        const error = new Error("La corriente debe ser Monofásico o Trifásico");
+        errors.current = error.message;
     }
 
     if (!potentialRadiationPerkWYear) {
@@ -164,8 +182,10 @@ export const updatePredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
-        slope,
+        panelSlope,
+        structureType,
         installationType,
+        current,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
@@ -244,17 +264,33 @@ export const updatePredefined = async (req, res) => {
         errors.roofOrientation = error.message;
     }
 
-    if (!slope) {
+    if (!panelSlope) {
         const error = new Error("La inclinación es obligatoria");
-        errors.slope = error.message;
-    } else if (isNaN(slope)) {
+        errors.panelSlope = error.message;
+    } else if (isNaN(panelSlope)) {
         const error = new Error("La inclinación debe ser un número");
-        errors.slope = error.message;
+        errors.panelSlope = error.message;
+    }
+
+    if (!structureType) {
+        const error = new Error("El tipo de estructura es obligatorio");
+        errors.structureType = error.message;
+    } else if (structureType !== "Coplanar" && structureType !== "Inclinada") {
+        const error = new Error("El tipo de estructura debe ser Coplanar o Inclinada");
+        errors.structureType = error.message;
     }
 
     if (!installationType) {
         const error = new Error("El tipo de instalación es obligatorio");
         errors.installationType = error.message;
+    }
+
+    if (!current) {
+        const error = new Error("La corriente es obligatoria");
+        errors.current = error.message;
+    } else if (current !== "Monofásico" && current !== "Trifásico") {
+        const error = new Error("La corriente debe ser Monofásico o Trifásico");
+        errors.current = error.message;
     }
 
     if (!potentialRadiationPerkWYear) {
@@ -303,8 +339,10 @@ export const updatePredefined = async (req, res) => {
         ivaRate,
         estimatedCoverage,
         roofOrientation,
-        slope,
+        panelSlope,
+        structureType,
         installationType,
+        current,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
@@ -313,7 +351,9 @@ export const updatePredefined = async (req, res) => {
     };
 
     try {
-        const dbPredefined = await Predefined.findByIdAndUpdate(id, updatedPredefined, { new: true });
+        const dbPredefined = await Predefined.findByIdAndUpdate(id, updatedPredefined, {
+            new: true,
+        });
 
         res.json({
             message: "Datos predefinidos actualizados correctamente",

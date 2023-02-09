@@ -35,14 +35,24 @@ const predefinedSchema = mongoose.Schema(
             required: true,
             enum: ["Sur", "Este", "Oeste", "Este + Oeste"],
         },
-        slope: {
+        panelSlope: {
             type: Number,
             required: true,
+        },
+        structureType: {
+            type: String,
+            required: true,
+            enum: ["Coplanar", "Inclinada"],
         },
         installationType: {
             type: String,
             required: true,
             enum: ["String", "Microinversor"],
+        },
+        current: {
+            type: String,
+            required: true,
+            enum: ["Monofásico", "Trifásico"],
         },
         potentialRadiationPerkWYear: {
             type: Number,

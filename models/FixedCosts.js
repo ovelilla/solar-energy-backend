@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const fixedCostsSchema = mongoose.Schema(
     {
+        additionalString: {
+            type: Number,
+            required: true,
+        },
         PMCost: {
             type: Number,
             required: true,
@@ -38,7 +42,7 @@ const fixedCostsSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        netPrice: {
+        profitability: {
             type: Number,
             required: true,
         },

@@ -13,6 +13,7 @@ export const readFixedCosts = async (req, res) => {
 
 export const createFixedCosts = async (req, res) => {
     const {
+        additionalString,
         PMCost,
         transports,
         legalization,
@@ -22,11 +23,19 @@ export const createFixedCosts = async (req, res) => {
         operatingCosts,
         maintenanceCost,
         index,
-        netPrice,
+        profitability,
         ivaRate,
     } = req.body;
 
     const errors = {};
+
+    if (!additionalString) {
+        const error = new Error("El coste de string adicional es obligatorio");
+        errors.additionalString = error.message;
+    } else if (isNaN(additionalString)) {
+        const error = new Error("El coste de string adicional debe ser un número");
+        errors.additionalString = error.message;
+    }
 
     if (!PMCost) {
         const error = new Error("El coste de PM es obligatorio");
@@ -100,12 +109,12 @@ export const createFixedCosts = async (req, res) => {
         errors.index = error.message;
     }
 
-    if (!netPrice) {
-        const error = new Error("El precio neto es obligatorio");
-        errors.netPrice = error.message;
-    } else if (isNaN(netPrice)) {
-        const error = new Error("El precio neto debe ser un número");
-        errors.netPrice = error.message;
+    if (!profitability) {
+        const error = new Error("La rentabilidad es obligatoria");
+        errors.profitability = error.message;
+    } else if (isNaN(profitability)) {
+        const error = new Error("La rentabilidad debe ser un número");
+        errors.profitability = error.message;
     }
 
     if (!ivaRate) {
@@ -137,6 +146,7 @@ export const createFixedCosts = async (req, res) => {
 export const updateFixedCosts = async (req, res) => {
     const { id } = req.params;
     const {
+        additionalString,
         PMCost,
         transports,
         legalization,
@@ -146,7 +156,7 @@ export const updateFixedCosts = async (req, res) => {
         operatingCosts,
         maintenanceCost,
         index,
-        netPrice,
+        profitability,
         ivaRate,
     } = req.body;
 
@@ -155,6 +165,14 @@ export const updateFixedCosts = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         const error = new Error("Los gastos fijos no existen");
         return res.status(404).json({ message: error.message });
+    }
+
+    if (!additionalString) {
+        const error = new Error("El coste de string adicional es obligatorio");
+        errors.additionalString = error.message;
+    } else if (isNaN(additionalString)) {
+        const error = new Error("El coste de string adicional debe ser un número");
+        errors.additionalString = error.message;
     }
 
     if (!PMCost) {
@@ -229,12 +247,12 @@ export const updateFixedCosts = async (req, res) => {
         errors.index = error.message;
     }
 
-    if (!netPrice) {
-        const error = new Error("El precio neto es obligatorio");
-        errors.netPrice = error.message;
-    } else if (isNaN(netPrice)) {
-        const error = new Error("El precio neto debe ser un número");
-        errors.netPrice = error.message;
+    if (!profitability) {
+        const error = new Error("La rentabilidad es obligatoria");
+        errors.profitability = error.message;
+    } else if (isNaN(profitability)) {
+        const error = new Error("La rentabilidad debe ser un número");
+        errors.profitability = error.message;
     }
 
     if (!ivaRate) {
@@ -257,6 +275,7 @@ export const updateFixedCosts = async (req, res) => {
     }
 
     const updatedFixedCosts = {
+        additionalString,
         PMCost,
         transports,
         legalization,
@@ -266,7 +285,7 @@ export const updateFixedCosts = async (req, res) => {
         operatingCosts,
         maintenanceCost,
         index,
-        netPrice,
+        profitability,
         ivaRate,
         _id: id,
     };
