@@ -24,7 +24,11 @@ export const createFixedCosts = async (req, res) => {
         maintenanceCost,
         index,
         profitability,
-        ivaRate,
+        ivaInstallation,
+        ivaBatteries,
+        variousUnit,
+        variousPower,
+        variousModules,
     } = req.body;
 
     const errors = {};
@@ -117,12 +121,44 @@ export const createFixedCosts = async (req, res) => {
         errors.profitability = error.message;
     }
 
-    if (!ivaRate) {
-        const error = new Error("El tipo de IVA es obligatorio");
-        errors.ivaRate = error.message;
-    } else if (isNaN(ivaRate)) {
-        const error = new Error("El tipo de IVA debe ser un número");
-        errors.ivaRate = error.message;
+    if (!ivaInstallation) {
+        const error = new Error("El IVA de instalación es obligatorio");
+        errors.ivaInstallation = error.message;
+    } else if (isNaN(ivaInstallation)) {
+        const error = new Error("El IVA de instalación debe ser un número");
+        errors.ivaInstallation = error.message;
+    }
+
+    if (!ivaBatteries) {
+        const error = new Error("El IVA de baterías es obligatorio");
+        errors.ivaBatteries = error.message;
+    } else if (isNaN(ivaBatteries)) {
+        const error = new Error("El IVA de baterías debe ser un número");
+        errors.ivaBatteries = error.message;
+    }
+
+    if (variousUnit === "") {
+        const error = new Error("Los varios unitarios son obligatorios");
+        errors.variousUnit = error.message;
+    } else if (isNaN(variousUnit)) {
+        const error = new Error("Los varios unitarios deben ser un número");
+        errors.variousUnit = error.message;
+    }
+
+    if (variousPower === "") {
+        const error = new Error("Los varios por potencia total son obligatorios");
+        errors.variousPower = error.message;
+    } else if (isNaN(variousPower)) {
+        const error = new Error("Los varios por potencia total deben ser un número");
+        errors.variousPower = error.message;
+    }
+
+    if (variousModules === "") {
+        const error = new Error("Los varios por módulo son obligatorios");
+        errors.variousModules = error.message;
+    } else if (isNaN(variousModules)) {
+        const error = new Error("Los varios por módulo deben ser un número");
+        errors.variousModules = error.message;
     }
 
     if (Object.keys(errors).length) {
@@ -157,7 +193,11 @@ export const updateFixedCosts = async (req, res) => {
         maintenanceCost,
         index,
         profitability,
-        ivaRate,
+        ivaInstallation,
+        ivaBatteries,
+        variousUnit,
+        variousPower,
+        variousModules,
     } = req.body;
 
     const errors = {};
@@ -255,12 +295,44 @@ export const updateFixedCosts = async (req, res) => {
         errors.profitability = error.message;
     }
 
-    if (!ivaRate) {
-        const error = new Error("El tipo de IVA es obligatorio");
-        errors.ivaRate = error.message;
-    } else if (isNaN(ivaRate)) {
-        const error = new Error("El tipo de IVA debe ser un número");
-        errors.ivaRate = error.message;
+    if (!ivaInstallation) {
+        const error = new Error("El IVA de instalación es obligatorio");
+        errors.ivaInstallation = error.message;
+    } else if (isNaN(ivaInstallation)) {
+        const error = new Error("El IVA de instalación debe ser un número");
+        errors.ivaInstallation = error.message;
+    }
+
+    if (!ivaBatteries) {
+        const error = new Error("El IVA de baterías es obligatorio");
+        errors.ivaBatteries = error.message;
+    } else if (isNaN(ivaBatteries)) {
+        const error = new Error("El IVA de baterías debe ser un número");
+        errors.ivaBatteries = error.message;
+    }
+
+    if (variousUnit === "") {
+        const error = new Error("Los varios unitarios son obligatorios");
+        errors.variousUnit = error.message;
+    } else if (isNaN(variousUnit)) {
+        const error = new Error("Los varios unitarios deben ser un número");
+        errors.variousUnit = error.message;
+    }
+
+    if (variousPower === "") {
+        const error = new Error("Los varios por potencia total son obligatorios");
+        errors.variousPower = error.message;
+    } else if (isNaN(variousPower)) {
+        const error = new Error("Los varios por potencia total deben ser un número");
+        errors.variousPower = error.message;
+    }
+
+    if (variousModules === "") {
+        const error = new Error("Los varios por módulo son obligatorios");
+        errors.variousModules = error.message;
+    } else if (isNaN(variousModules)) {
+        const error = new Error("Los varios por módulo deben ser un número");
+        errors.variousModules = error.message;
     }
 
     if (Object.keys(errors).length) {
@@ -286,7 +358,11 @@ export const updateFixedCosts = async (req, res) => {
         maintenanceCost,
         index,
         profitability,
-        ivaRate,
+        ivaInstallation,
+        ivaBatteries,
+        variousUnit,
+        variousPower,
+        variousModules,
         _id: id,
     };
 

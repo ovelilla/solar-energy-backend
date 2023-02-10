@@ -46,7 +46,23 @@ const fixedCostsSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        ivaRate: {
+        ivaInstallation: {
+            type: Number,
+            required: true,
+        },
+        ivaBatteries: {
+            type: Number,
+            required: true,
+        },
+        variousUnit: {
+            type: Number,
+            required: true,
+        },
+        variousPower: {
+            type: Number,
+            required: true,
+        },
+        variousModules: {
             type: Number,
             required: true,
         },

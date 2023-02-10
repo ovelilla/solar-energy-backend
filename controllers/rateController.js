@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Panel from "../models/Panel.js";
+import Battery from "../models/Battery.js";
 import Inverter from "../models/Inverter.js";
 import Microinverter from "../models/Microinverter.js";
 import Meter from "../models/Meter.js";
@@ -10,7 +11,8 @@ import Protection from "../models/Protection.js";
 import FixedCosts from "../models/FixedCosts.js";
 
 export const getRate = async (req, res) => {
-    const { modules, installationType, current, structureType, panelId } = req.body;
+    const { modules, installationType, current, structureType, panelId, batteryId } =
+        req.body;
 
     const errors = {};
 
@@ -37,20 +39,13 @@ export const getRate = async (req, res) => {
         errors.structureType = error.message;
     }
 
-    if (!panelId) {
-        const error = new Error("Por favor, seleccione el panel");
-        errors.panelId = error.message;
-    } else if (!mongoose.Types.ObjectId.isValid(panelId)) {
-        const error = new Error("El panel no existe");
-        errors.panelId = error.message;
-    }
-
     if (Object.keys(errors).length) {
         return res.status(400).json({ errors });
     }
 
     const [
         panels,
+        batteries,
         inverters,
         microinverters,
         meters,
@@ -61,6 +56,7 @@ export const getRate = async (req, res) => {
         fixedCosts,
     ] = await Promise.all([
         Panel.find(),
+        Battery.find(),
         Inverter.find(),
         Microinverter.find(),
         Meter.find(),
@@ -73,7 +69,9 @@ export const getRate = async (req, res) => {
 
     const stringsNumber = Math.ceil(modules / 11);
 
-    const panel = panels.find((panel) => panel._id.equals(panelId));
+    const panel = panels.find((panel) => {
+        return !panelId ? panel.active : panel._id.equals(panelId);
+    });
     const panelsPower = modules * panel.power;
     const panelsPrice = modules * panel.price;
 
@@ -164,6 +162,10 @@ export const getRate = async (req, res) => {
     const acquisitionCosts = fixedCosts.acquisitionCosts;
     const operatingCosts = fixedCosts.operatingCosts;
     const maintenanceCost = fixedCosts.maintenanceCost;
+    const variousUnitCost = fixedCosts.variousUnit;
+    const variousPowerCost = fixedCosts.variousPower * panelsPower;
+    const variousModulesCost = fixedCosts.variousModules * modules;
+
     const totalFixedCosts =
         PMCost +
         transportCost +
@@ -172,7 +174,10 @@ export const getRate = async (req, res) => {
         technicalVisitCost +
         acquisitionCosts +
         operatingCosts +
-        maintenanceCost;
+        maintenanceCost +
+        variousUnitCost +
+        variousPowerCost +
+        variousModulesCost;
 
     const totalCost =
         equipmentPrice +
@@ -185,14 +190,22 @@ export const getRate = async (req, res) => {
     const index = equipmentPrice / fixedCosts.index;
 
     const margin = index - totalCost;
-    const profitability = margin / index * 100;
+    const profitability = (margin / index) * 100;
 
     const netPrice = profitability > 30 ? index : totalCostWithMargin;
 
-    const pvp = netPrice + (netPrice * fixedCosts.ivaRate) / 100;
+    const pvp = netPrice + (netPrice * fixedCosts.ivaInstallation) / 100;
     const profit = netPrice - totalCost;
-    const percentageProfit = profit / netPrice * 100;
+    const percentageProfit = (profit / netPrice) * 100;
     const eurosPerWatt = pvp / panelsPower;
+
+    const battery =
+        batteries.find((battery) => {
+            return battery._id.equals(batteryId);
+        }) || null;
+    const batteryPrice = battery ? battery.price : 0;
+    const batteryPriceIva = batteryPrice + (batteryPrice * fixedCosts.ivaBatteries) / 100;
+    const pvpWithBattery = pvp + batteryPriceIva;
 
     const rate = {
         general: {
@@ -201,6 +214,7 @@ export const getRate = async (req, res) => {
         },
         equipment: {
             panel: {
+                id: panel._id,
                 description: panel.description,
                 power: panel.power,
                 price: panel.price,
@@ -239,6 +253,13 @@ export const getRate = async (req, res) => {
             peripherals: {
                 activePeripherals,
                 totalPrice: peripheralsPrice,
+            },
+            battery: {
+                hasBattery: battery ? true : false,
+                description: battery ? battery.description : "",
+                capacity: battery ? battery.capacity : 0,
+                price: battery ? batteryPrice : 0,
+                priceIva: batteryPriceIva,
             },
             total: equipmentPrice,
         },
@@ -280,6 +301,9 @@ export const getRate = async (req, res) => {
                 acquisitionCosts,
                 operatingCosts,
                 maintenanceCost,
+                variousUnitCost,
+                variousPowerCost,
+                variousModulesCost,
                 total: totalFixedCosts,
             },
         },
@@ -294,6 +318,7 @@ export const getRate = async (req, res) => {
             profit,
             percentageProfit,
             eurosPerWatt,
+            pvpWithBattery,
         },
     };
 
