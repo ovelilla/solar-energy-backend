@@ -10,6 +10,8 @@ export const getPlace = async (req, res) => {
         key: process.env.GOOGLE_MAPS_API_KEY,
     };
 
+    console.log(params);
+
     try {
         const response = await axios.get(urlBase, { params });
 
