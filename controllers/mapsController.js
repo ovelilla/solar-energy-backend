@@ -13,6 +13,7 @@ export const getPlace = async (req, res) => {
     try {
         const response = await axios.get(urlBase, { params });
 
+        console.log(response.data);
         if (response.data.status !== "OK") {
             throw new Error("Error fetching place");
         }
