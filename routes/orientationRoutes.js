@@ -10,7 +10,7 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.get("/", checkAuth, readOrientations);
+router.get("/", readOrientations);
 router.post("/", checkAuth, createOrientation);
 router.put("/:id", checkAuth, updateOrientation);
 router.delete("/:id", checkAuth, deleteOrientation);

@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
-import userRoutes from "./routes/userRoutes.js";
 
+import userRoutes from "./routes/userRoutes.js";
 import proposalRoutes from "./routes/proposalRoutes.js";
+import mapsRoutes from "./routes/mapsRoutes.js";
+import pvgisRoutes from "./routes/pvgisRoutes.js";
 
 import predefinedRoutes from "./routes/predefinedRoutes.js";
 import orientationRoutes from "./routes/orientationRoutes.js";
@@ -50,6 +52,8 @@ app.use(cors(corsOptions));
 
 app.use("/api/user", userRoutes);
 app.use("/api/proposal", proposalRoutes);
+app.use("/api/maps", mapsRoutes);
+app.use("/api/pvgis", pvgisRoutes);
 
 app.use("/api/predefined", predefinedRoutes);
 app.use("/api/orientation", orientationRoutes);

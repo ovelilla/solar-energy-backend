@@ -11,8 +11,7 @@ import Protection from "../models/Protection.js";
 import FixedCosts from "../models/FixedCosts.js";
 
 export const getRate = async (req, res) => {
-    const { modules, installationType, current, structureType, panelId, batteryId } =
-        req.body;
+    const { modules, installationType, current, structureType, panelId, batteryId } = req.body;
 
     const errors = {};
 
@@ -207,6 +206,8 @@ export const getRate = async (req, res) => {
     const batteryPriceIva = batteryPrice + (batteryPrice * fixedCosts.ivaBatteries) / 100;
     const pvpWithBattery = pvp + batteryPriceIva;
 
+    const iva = pvpWithBattery - pvpWithBattery / (1 + fixedCosts.ivaBatteries / 100);
+
     const rate = {
         general: {
             installationType,
@@ -319,8 +320,13 @@ export const getRate = async (req, res) => {
             percentageProfit,
             eurosPerWatt,
             pvpWithBattery,
+            iva,
         },
     };
 
-    res.json(rate);
+    if (res) {
+        res.json(rate);
+    } else {
+        return rate;
+    }
 };

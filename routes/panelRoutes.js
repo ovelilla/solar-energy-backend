@@ -11,7 +11,7 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.get("/", checkAuth, readPanels);
+router.get("/", readPanels);
 router.post("/", checkAuth, createPanel);
 router.put("/:id", checkAuth, updatePanel);
 router.put("/:id/active", checkAuth, updateActive);

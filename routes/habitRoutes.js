@@ -10,7 +10,7 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.get("/", checkAuth, readHabits);
+router.get("/", readHabits);
 router.post("/", checkAuth, createHabit);
 router.put("/:id", checkAuth, updateHabit);
 router.delete("/:id", checkAuth, deleteHabit);

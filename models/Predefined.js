@@ -54,6 +54,10 @@ const predefinedSchema = mongoose.Schema(
             required: true,
             enum: ["Monofásico", "Trifásico"],
         },
+        numberPanels: {
+            type: Number,
+            required: true,
+        },
         potentialRadiationPerkWYear: {
             type: Number,
             required: true,
@@ -67,7 +71,7 @@ const predefinedSchema = mongoose.Schema(
             required: true,
             enum: ["Mañana", "Mediodía", "Tarde-noche"],
         },
-        battery: {
+        hasBattery: {
             type: Boolean,
             required: true,
         },

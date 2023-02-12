@@ -11,7 +11,7 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.get("/", checkAuth, readPeripherals);
+router.get("/", readPeripherals);
 router.post("/", checkAuth, createPeripheral);
 router.put("/:id", checkAuth, updatePeripheral);
 router.put("/:id/active", checkAuth, updateActive);

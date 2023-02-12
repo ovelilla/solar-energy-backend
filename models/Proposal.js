@@ -2,70 +2,72 @@ import mongoose from "mongoose";
 
 const proposalSchema = mongoose.Schema(
     {
+        clientIp: {
+            type: String,
+            required: true,
+            trim: true,
+        },
         uuid: {
             type: String,
             required: true,
         },
-        placeId: {
-            type: String,
-            required: true,
-            trim: true,
-        },
         address: {
-            type: String,
+            type: Object,
             required: true,
-            trim: true,
-        },
-        latitude: {
-            type: Number,
-            required: true,
-            default: 0,
-        },
-        longitude: {
-            type: Number,
-            required: true,
-            default: 0,
+            default: null,
+            placeId: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            formattedAddress: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            latitude: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            longitude: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            components: {
+                type: Object,
+                required: true,
+                default: null,
+            },
         },
         consumption: {
-            type: Number,
-            required: true,
-            default: 140,
+            type: Object,
+            default: null,
         },
-        kWhConsumed: {
-            type: Number,
-            required: true,
-            default: 500,
+        installation: {
+            type: Object,
+            default: null,
         },
-        contractedPower: {
-            type: Number,
-            required: true,
-            default: 3.45,
+        pvgis: {
+            type: Object,
+            default: null,
+            monthly: {
+                type: Array,
+                default: [],
+            },
+            totals: {
+                type: Object,
+                default: null,
+            },
         },
-        panelsNumber: {
-            type: Number,
-            required: true,
-            default: 10,
+        summary: {
+            type: Object,
+            default: null,
         },
-        installationType: {
-            type: String,
-            required: true,
-            enum: ["premium", "microinverters"],
-            default: "premium",
-        },
-        hasBattery: {
-            type: Boolean,
-            required: true,
-            default: false,
-        },
-        batteryBrand: {
-            type: String,
-            default: "",
-        },
-        paymenMethod: {
-            type: String,
-            required: true,
-            enum: ["cash", "finance"],
-            default: "cash",
+        payment: {
+            type: Object,
+            default: null,
         },
     },
     {

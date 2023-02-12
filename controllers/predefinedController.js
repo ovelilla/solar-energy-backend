@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Predefined from "../models/Predefined.js";
 
 export const readPredefined = async (req, res) => {
+    console.log("readPredefined");
     try {
         const predefined = await Predefined.findOne();
 
@@ -25,10 +26,11 @@ export const createPredefined = async (req, res) => {
         structureType,
         installationType,
         current,
+        numberPanels,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
-        battery,
+        hasBattery,
     } = req.body;
 
     const errors = {};
@@ -127,6 +129,14 @@ export const createPredefined = async (req, res) => {
         errors.current = error.message;
     }
 
+    if (!numberPanels) {
+        const error = new Error("El número de paneles es obligatorio");
+        errors.numberPanels = error.message;
+    } else if (isNaN(numberPanels)) {
+        const error = new Error("El número de paneles debe ser un número");
+        errors.numberPanels = error.message;
+    }
+
     if (!potentialRadiationPerkWYear) {
         const error = new Error("La radiación potencial por kW anual es obligatoria");
         errors.potentialRadiationPerkWYear = error.message;
@@ -148,9 +158,9 @@ export const createPredefined = async (req, res) => {
         errors.consumptionHabit = error.message;
     }
 
-    if (battery === "") {
+    if (hasBattery === "") {
         const error = new Error("La batería es obligatoria");
-        errors.battery = error.message;
+        errors.hasBattery = error.message;
     }
 
     if (Object.keys(errors).length) {
@@ -186,10 +196,11 @@ export const updatePredefined = async (req, res) => {
         structureType,
         installationType,
         current,
+        numberPanels,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
-        battery,
+        hasBattery,
     } = req.body;
 
     const errors = {};
@@ -293,6 +304,14 @@ export const updatePredefined = async (req, res) => {
         errors.current = error.message;
     }
 
+    if (!numberPanels) {
+        const error = new Error("El número de paneles es obligatorio");
+        errors.numberPanels = error.message;
+    } else if (isNaN(numberPanels)) {
+        const error = new Error("El número de paneles debe ser un número");
+        errors.numberPanels = error.message;
+    }
+
     if (!potentialRadiationPerkWYear) {
         const error = new Error("La radiación potencial por kW anual es obligatoria");
         errors.potentialRadiationPerkWYear = error.message;
@@ -314,9 +333,9 @@ export const updatePredefined = async (req, res) => {
         errors.consumptionHabit = error.message;
     }
 
-    if (battery === "") {
+    if (hasBattery === "") {
         const error = new Error("La batería es obligatoria");
-        errors.battery = error.message;
+        errors.hasBattery = error.message;
     }
 
     if (Object.keys(errors).length) {
@@ -343,10 +362,11 @@ export const updatePredefined = async (req, res) => {
         structureType,
         installationType,
         current,
+        numberPanels,
         potentialRadiationPerkWYear,
         systemLoss,
         consumptionHabit,
-        battery,
+        hasBattery,
         _id: id,
     };
 
