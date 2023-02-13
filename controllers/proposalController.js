@@ -65,14 +65,18 @@ export const updateProposal = async (req, res) => {
     const { proposal } = req.body;
 
     try {
-        const updatedProposal = await Proposal.findByIdAndUpdate(id, proposal, { new: true });
+        const currentProposal = await Proposal.findById(id);
 
-        if (!updatedProposal) {
+        if (!currentProposal) {
             const error = new Error("La propuesta no existe");
             return res.status(404).json({ message: error.message });
         }
 
-        res.status(200).json(updatedProposal);
+        proposal.counter = currentProposal.counter + 1;
+
+        const updatedProposal = await Proposal.findByIdAndUpdate(id, proposal, { new: true });
+
+        res.json(updatedProposal);
     } catch (error) {
         console.log(error);
     }

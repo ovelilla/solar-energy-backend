@@ -11,6 +11,11 @@ const proposalSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        counter: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
         address: {
             type: Object,
             required: true,

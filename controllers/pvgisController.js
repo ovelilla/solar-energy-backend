@@ -34,10 +34,21 @@ export const getPvgis = async (req, res) => {
     try {
         const response = await axios.get(urlBase, { params });
 
+        const monthlyData = response.data.outputs.monthly.fixed.map((item) => {
+            return {
+                month: item.month,
+                E_m: item.E_m,
+            };
+        });
+
+        const totalsData = {
+            E_y: response.data.outputs.totals.fixed.E_y,
+        };
+
         const data = {
             response: response.data,
-            monthly: response.data.outputs.monthly.fixed,
-            totals: response.data.outputs.totals.fixed,
+            monthly: monthlyData,
+            totals: totalsData,
         };
 
         res.json(data);
