@@ -6,22 +6,33 @@ import Panel from "../models/Panel.js";
 import Habit from "../models/Habit.js";
 import { getRate } from "./rateController.js";
 
-export const readProposals = async (req, res) => {
+export const readProposal = async (req, res) => {
+    const { id } = req.params;
     try {
-        const proposals = await Proposal.find().sort({ createdAt: -1 });
+        const proposal = await Proposal.findById(id);
 
-        res.json(proposals);
+        res.json(proposal);
     } catch (error) {
         console.log(error);
     }
 };
 
-export const readProposal = async (req, res) => {
+export const readProposalUuid = async (req, res) => {
     const { uuid } = req.params;
     try {
         const proposal = await Proposal.findOne({ uuid });
 
         res.json(proposal);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const readProposals = async (req, res) => {
+    try {
+        const proposals = await Proposal.find().sort({ createdAt: -1 });
+
+        res.json(proposals);
     } catch (error) {
         console.log(error);
     }

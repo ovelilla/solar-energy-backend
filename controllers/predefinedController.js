@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import Predefined from "../models/Predefined.js";
 
 export const readPredefined = async (req, res) => {
-    console.log("readPredefined");
     try {
         const predefined = await Predefined.findOne();
 

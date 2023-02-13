@@ -2,6 +2,7 @@ import express from "express";
 import {
     readProposals,
     readProposal,
+    readProposalUuid,
     createProposal,
     calculateProposal,
     updateProposal,
@@ -10,7 +11,8 @@ import {
 const router = express.Router();
 
 router.get("/", readProposals);
-router.get("/:uuid", readProposal);
+router.get("/:id", readProposal);
+router.get("/uuid/:uuid", readProposalUuid);
 router.post("/", createProposal);
 router.post("/calculate", calculateProposal);
 router.put("/:id", updateProposal);
