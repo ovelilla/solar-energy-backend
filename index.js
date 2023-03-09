@@ -27,6 +27,11 @@ import lineRoutes from "./routes/lineRoutes.js";
 import fixedCostsRoutes from "./routes/fixedCostsRoutes.js";
 import rateRoutes from "./routes/rateRoutes.js";
 
+import eventRoutes from "./routes/eventRoutes.js";
+import labelRoutes from "./routes/labelRoutes.js";
+
+import contactRoutes from "./routes/contactRoutes.js";
+
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -72,6 +77,11 @@ app.use("/api/line", lineRoutes);
 
 app.use("/api/fixed-costs", fixedCostsRoutes);
 app.use("/api/rate", rateRoutes);
+
+app.use("/api/event", eventRoutes);
+app.use("/api/label", labelRoutes);
+
+app.use("/api/contact", contactRoutes);
 
 const PORT = process.env.PORT || 4000;
 
