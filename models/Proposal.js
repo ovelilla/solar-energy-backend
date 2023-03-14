@@ -74,6 +74,15 @@ const proposalSchema = mongoose.Schema(
             type: Object,
             default: null,
         },
+        status: {
+            type: String,
+            default: "pending",
+        },
+        contactId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Contact",
+            default: null,
+        },
     },
     {
         timestamps: true,

@@ -4,6 +4,8 @@ import requestIp from "request-ip";
 import Proposal from "../models/Proposal.js";
 import Panel from "../models/Panel.js";
 import Habit from "../models/Habit.js";
+import Contact from "../models/Contact.js";
+import Event from "../models/Event.js";
 import { getRate } from "./rateController.js";
 
 export const readProposal = async (req, res) => {
@@ -90,6 +92,80 @@ export const updateProposal = async (req, res) => {
         res.json(updatedProposal);
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const requestProposal = async (req, res) => {
+    const { id } = req.params;
+    const { name, surname, email, phone, date } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        const error = new Error("La propuesta no existe");
+        return res.status(404).json({ message: error.message });
+    }
+
+    const errors = {};
+
+    if (!name) {
+        const error = new Error("El nombre es obligatorio");
+        errors.name = error.message;
+    }
+
+    if (!surname) {
+        const error = new Error("Los apellidos son obligatorios");
+        errors.surname = error.message;
+    }
+
+    if (!email) {
+        const error = new Error("El email es obligatorio");
+        errors.email = error.message;
+    }
+
+    if (!phone) {
+        const error = new Error("El teléfono es obligatorio");
+        errors.phone = error.message;
+    }
+
+    const foundProposal = await Proposal.findById(id);
+
+    if (!foundProposal) {
+        const error = new Error("La propuesta no existe");
+        return res.status(404).json({ message: error.message });
+    }
+
+    const foundContact = await Contact.findOne({ email });
+
+    try {
+        if (!foundContact) {
+            const contact = new Contact({ name, surname, email, phone, date });
+            const savedContact = await contact.save();
+
+            foundProposal.contact = savedContact._id;
+        } else {
+            foundProposal.contact = foundContact._id;
+        }
+
+        foundProposal.status = "request";
+
+        const updatedProposal = await foundProposal.save();
+
+        const event = new Event({
+            title: "Solicitud de propuesta",
+            description: `Solicitud de propuesta para ${name} ${surname}`,
+            start: date,
+            end: date,
+            allDay: false,
+            labelId: "64087a14f2718ffb83c90580",
+        });
+        const savedEvent = await event.save();
+
+        res.json({
+            message: "Propuesta solicitada correctamente",
+            proposal: updatedProposal,
+            event: savedEvent,
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error al transformar la propuesta" });
     }
 };
 

@@ -6,6 +6,7 @@ import {
     createProposal,
     calculateProposal,
     updateProposal,
+    requestProposal,
 } from "../controllers/proposalController.js";
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.get("/uuid/:uuid", readProposalUuid);
 router.post("/", createProposal);
 router.post("/calculate", calculateProposal);
 router.put("/:id", updateProposal);
+router.put("/:id/request", requestProposal);
 
 export default router;
